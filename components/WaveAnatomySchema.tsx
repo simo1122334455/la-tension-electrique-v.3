@@ -15,17 +15,16 @@ export default function WaveAnatomySchema() {
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", gap: 14, flexWrap: "wrap", alignItems: "baseline" }}>
-        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 900, letterSpacing: "0.04em" }}>
-          Anatomie d’une onde périodique
+        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, letterSpacing: "0.04em" }}>
+          Anatomie d&rsquo;une onde périodique
         </div>
         <div style={{ color: "var(--color-text-sub)", fontSize: 12 }}>
-          T : période · U_max : amplitude
+          T : période · U<sub>max</sub> : amplitude
         </div>
       </div>
 
       <div style={{ marginTop: 14 }}>
         <svg width="100%" viewBox="0 0 780 240" role="img" aria-label="Anatomie onde périodique">
-          {/* Grid baseline */}
           <rect x="0" y="0" width="780" height="240" fill="rgba(0,0,0,0)" />
 
           {/* Axis */}
@@ -44,8 +43,10 @@ export default function WaveAnatomySchema() {
           <line x1="170" y1="90" x2="170" y2="140" stroke="var(--color-gold)" strokeWidth="4" strokeLinecap="round" />
           <path d="M160 98 L170 80 L180 98" fill="none" stroke="var(--color-gold)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M160 132 L170 150 L180 132" fill="none" stroke="var(--color-gold)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+
+          {/* Fixed: use tspan for subscript so it renders as U_max not "U_max" */}
           <text x="170" y="65" textAnchor="middle" fill="var(--color-gold)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="900">
-            U_max
+            U<tspan baselineShift="sub" fontSize="12">max</tspan>
           </text>
 
           {/* Period arrow */}
@@ -64,4 +65,3 @@ export default function WaveAnatomySchema() {
     </div>
   );
 }
-
