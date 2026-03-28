@@ -83,25 +83,27 @@ function CharacteristicCard({ topColor, title, formula, text }: { topColor: stri
 
 function AnimatedArrowGroup() {
   return (
-    <svg width="520" height="260" viewBox="0 0 520 260" fill="none" aria-hidden style={{ opacity: 0.95 }}>
-      <rect x="40" y="70" width="130" height="120" rx="12" stroke="rgba(255,255,255,0.12)" fill="rgba(15,30,51,0.55)" />
-      <rect x="200" y="70" width="130" height="120" rx="12" stroke="rgba(255,255,255,0.12)" fill="rgba(15,30,51,0.55)" />
-      <rect x="360" y="70" width="130" height="120" rx="12" stroke="rgba(255,255,255,0.12)" fill="rgba(15,30,51,0.55)" />
-      <text x="105" y="110" fill="var(--color-text)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="800">G</text>
-      <text x="265" y="110" fill="var(--color-text)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="800">R1</text>
-      <text x="420" y="110" fill="var(--color-text)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="800">R2</text>
-      <path d="M170 130 H200" stroke="rgba(0,200,224,0.35)" strokeWidth="3" strokeLinecap="round" />
-      <path d="M330 130 H360" stroke="rgba(0,200,224,0.35)" strokeWidth="3" strokeLinecap="round" />
-      {(["U_G", "U_1", "U_2"] as const).map((label, i) => (
-        <motion.g key={label} initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10% 0px" }} transition={{ duration: 0.6, delay: i * 0.1 }}>
-          <path d={i === 0 ? "M110 60 V95" : i === 1 ? "M270 60 V95" : "M430 60 V95"} stroke="var(--color-gold)" strokeWidth="3" strokeLinecap="round" />
-          <path d={i === 0 ? "M92 74 L110 60 L128 74" : i === 1 ? "M252 74 L270 60 L288 74" : "M412 74 L430 60 L448 74"} fill="none" stroke="var(--color-gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          <text x={i === 0 ? 80 : i === 1 ? 240 : 400} y="52" fill="var(--color-gold)" fontFamily="var(--font-body)" fontSize="14" fontWeight="800">
-            U<tspan baselineShift="sub" fontSize="10">{label === "U_G" ? "G" : label === "U_1" ? "1" : "2"}</tspan>
-          </text>
-        </motion.g>
-      ))}
-    </svg>
+    <div style={{ overflowX: "auto" }}>
+      <svg width="100%" viewBox="0 0 520 200" fill="none" aria-hidden style={{ opacity: 0.95, minWidth: 280 }}>
+        <rect x="40" y="40" width="110" height="100" rx="12" stroke="rgba(255,255,255,0.12)" fill="rgba(15,30,51,0.55)" />
+        <rect x="200" y="40" width="110" height="100" rx="12" stroke="rgba(255,255,255,0.12)" fill="rgba(15,30,51,0.55)" />
+        <rect x="360" y="40" width="110" height="100" rx="12" stroke="rgba(255,255,255,0.12)" fill="rgba(15,30,51,0.55)" />
+        <text x="95" y="97" textAnchor="middle" fill="var(--color-text)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="800">G</text>
+        <text x="255" y="97" textAnchor="middle" fill="var(--color-text)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="800">R1</text>
+        <text x="415" y="97" textAnchor="middle" fill="var(--color-text)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="800">R2</text>
+        <path d="M150 90 H200" stroke="rgba(0,200,224,0.35)" strokeWidth="3" strokeLinecap="round" />
+        <path d="M310 90 H360" stroke="rgba(0,200,224,0.35)" strokeWidth="3" strokeLinecap="round" />
+        {(["U_G", "U_1", "U_2"] as const).map((label, i) => (
+          <motion.g key={label} initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10% 0px" }} transition={{ duration: 0.6, delay: i * 0.1 }}>
+            <path d={i === 0 ? "M95 30 V55" : i === 1 ? "M255 30 V55" : "M415 30 V55"} stroke="var(--color-gold)" strokeWidth="3" strokeLinecap="round" />
+            <path d={i === 0 ? "M80 44 L95 30 L110 44" : i === 1 ? "M240 44 L255 30 L270 44" : "M400 44 L415 30 L430 44"} fill="none" stroke="var(--color-gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <text x={i === 0 ? 68 : i === 1 ? 228 : 388} y="24" fill="var(--color-gold)" fontFamily="var(--font-body)" fontSize="13" fontWeight="800">
+              U<tspan baselineShift="sub" fontSize="9">{label === "U_G" ? "G" : label === "U_1" ? "1" : "2"}</tspan>
+            </text>
+          </motion.g>
+        ))}
+      </svg>
+    </div>
   );
 }
 
@@ -141,23 +143,23 @@ function DipoleDiagram() {
 
 function ParallelIllustration() {
   return (
-    <div style={{ background: "var(--color-surface-2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: 18, marginTop: 12 }}>
-      <svg width="520" height="210" viewBox="0 0 520 210" aria-hidden>
-        <rect x="80" y="40" width="360" height="130" rx="14" fill="rgba(0,0,0,0)" stroke="rgba(255,255,255,0.10)" />
-        <path d="M130 105 H170" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
-        <path d="M350 105 H390" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
-        <path d="M170 75 V135" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
-        <path d="M350 75 V135" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
-        <rect x="190" y="58" width="70" height="95" rx="12" fill="rgba(255,193,7,0.06)" stroke="rgba(255,193,7,0.35)" />
-        <rect x="260" y="58" width="70" height="95" rx="12" fill="rgba(255,193,7,0.06)" stroke="rgba(255,193,7,0.35)" />
-        <text x="225" y="105" textAnchor="middle" fill="var(--color-gold)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="900">R1</text>
-        <text x="295" y="105" textAnchor="middle" fill="var(--color-gold)" fontFamily="var(--font-heading)" fontSize="18" fontWeight="900">R2</text>
+    <div style={{ background: "var(--color-surface-2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: 18, marginTop: 12, overflowX: "auto" }}>
+      <svg width="100%" viewBox="0 0 340 180" aria-hidden style={{ minWidth: 220 }}>
+        <rect x="40" y="20" width="260" height="130" rx="14" fill="rgba(0,0,0,0)" stroke="rgba(255,255,255,0.10)" />
+        <path d="M20 85 H60" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
+        <path d="M280 85 H320" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
+        <path d="M60 55 V115" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
+        <path d="M280 55 V115" stroke="rgba(0,200,224,0.35)" strokeWidth="4" strokeLinecap="round" />
+        <rect x="80" y="38" width="70" height="95" rx="12" fill="rgba(255,193,7,0.06)" stroke="rgba(255,193,7,0.35)" />
+        <rect x="190" y="38" width="70" height="95" rx="12" fill="rgba(255,193,7,0.06)" stroke="rgba(255,193,7,0.35)" />
+        <text x="115" y="88" textAnchor="middle" fill="var(--color-gold)" fontFamily="var(--font-heading)" fontSize="16" fontWeight="900">R1</text>
+        <text x="225" y="88" textAnchor="middle" fill="var(--color-gold)" fontFamily="var(--font-heading)" fontSize="16" fontWeight="900">R2</text>
         {[0, 1].map((i) => (
           <motion.g key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.1 }}>
-            <path d={i === 0 ? "M185 40 V90" : "M345 40 V90"} stroke="var(--color-accent)" strokeWidth="3" strokeLinecap="round" />
-            <path d={i === 0 ? "M165 58 L185 40 L205 58" : "M325 58 L345 40 L365 58"} stroke="var(--color-accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            <text x={i === 0 ? 185 : 345} y="34" textAnchor="middle" fill="var(--color-accent)" fontFamily="var(--font-body)" fontSize="14" fontWeight="900">
-              U<tspan baselineShift="sub" fontSize="10">{i === 0 ? "1" : "2"}</tspan>
+            <path d={i === 0 ? "M115 20 V50" : "M225 20 V50"} stroke="var(--color-accent)" strokeWidth="3" strokeLinecap="round" />
+            <path d={i === 0 ? "M100 34 L115 20 L130 34" : "M210 34 L225 20 L240 34"} stroke="var(--color-accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <text x={i === 0 ? 115 : 225} y="14" textAnchor="middle" fill="var(--color-accent)" fontFamily="var(--font-body)" fontSize="13" fontWeight="900">
+              U<tspan baselineShift="sub" fontSize="9">{i === 0 ? "1" : "2"}</tspan>
             </text>
           </motion.g>
         ))}
@@ -165,7 +167,6 @@ function ParallelIllustration() {
     </div>
   );
 }
-
 export default function CoursPage() {
   return (
     <div style={{ background: "var(--color-bg)", paddingBottom: 80 }}>
