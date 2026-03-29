@@ -2,6 +2,130 @@
 
 import { useState } from "react";
 
+function SerieCircuit({ ug, u1, u2, ok }: { ug: number; u1: number; u2: number; ok: boolean }) {
+  return (
+    <svg viewBox="0 0 680 240" width="100%" role="img" aria-label="Circuit série">
+      <defs>
+        <marker id="arr-s" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </marker>
+      </defs>
+
+      {/* Outer loop */}
+      <path d="M90 115 H50 V40 H640 V115 H610" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M90 165 H50 V200 H640 V165 H610" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      {/* Between G and R1 */}
+      <line x1="250" y1="115" x2="300" y2="115" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="250" y1="165" x2="300" y2="165" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      {/* Between R1 and R2 */}
+      <line x1="460" y1="115" x2="510" y2="115" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="460" y1="165" x2="510" y2="165" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+
+      {/* Current arrow */}
+      <line x1="360" y1="40" x2="410" y2="40" stroke="#378ADD" strokeWidth="1.5" markerEnd="url(#arr-s)"/>
+      <text x="385" y="33" textAnchor="middle" fontSize="11" fill="#60A0E0" fontFamily="monospace" fontWeight="700">I</text>
+
+      {/* G */}
+      <circle cx="170" cy="140" r="46" fill="rgba(14,40,80,0.55)" stroke="#378ADD" strokeWidth="2"/>
+      <text x="170" y="133" textAnchor="middle" fontSize="20" fill="#60A0E0" fontFamily="monospace" fontWeight="700">G</text>
+      <text x="170" y="112" textAnchor="middle" fontSize="13" fill="#EF9F27" fontFamily="monospace">+</text>
+      <text x="170" y="181" textAnchor="middle" fontSize="13" fill="#888" fontFamily="monospace">−</text>
+
+      {/* U_G arrow */}
+      <line x1="20" y1="165" x2="20" y2="115" stroke="#EF9F27" strokeWidth="2" markerEnd="url(#arr-s)"/>
+      <text x="12" y="141" textAnchor="middle" fontSize="12" fill="#EF9F27" fontFamily="monospace" fontWeight="700">U</text>
+      <text x="12" y="152" textAnchor="middle" fontSize="9" fill="#EF9F27" fontFamily="monospace">G</text>
+      <text x="32" y="152" textAnchor="middle" fontSize="10" fill="#EF9F27" fontFamily="monospace">{ug.toFixed(1)}V</text>
+
+      {/* R1 */}
+      <rect x="300" y="105" width="160" height="60" rx="8" fill="rgba(10,30,50,0.6)" stroke="#1D9E75" strokeWidth="2"/>
+      <polyline points="318,135 330,118 344,152 358,118 372,152 386,118 400,152 414,118 428,135 442,135" fill="none" stroke="#1D9E75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <text x="380" y="158" textAnchor="middle" fontSize="11" fill="#9FE1CB" fontFamily="monospace" fontWeight="700">R1</text>
+      {/* U1 arrow */}
+      <line x1="310" y1="92" x2="450" y2="92" fill="none" stroke="#EF9F27" strokeWidth="1.5" markerEnd="url(#arr-s)"/>
+      <text x="380" y="86" textAnchor="middle" fontSize="10" fill="#EF9F27" fontFamily="monospace" fontWeight="700">U₁ = {u1.toFixed(1)}V</text>
+
+      {/* R2 */}
+      <rect x="510" y="105" width="160" height="60" rx="8" fill="rgba(10,30,50,0.6)" stroke="#1D9E75" strokeWidth="2"/>
+      <polyline points="528,135 540,118 554,152 568,118 582,152 596,118 610,152 624,118 638,135 652,135" fill="none" stroke="#1D9E75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <text x="590" y="158" textAnchor="middle" fontSize="11" fill="#9FE1CB" fontFamily="monospace" fontWeight="700">R2</text>
+      {/* U2 arrow */}
+      <line x1="520" y1="92" x2="660" y2="92" fill="none" stroke="#EF9F27" strokeWidth="1.5" markerEnd="url(#arr-s)"/>
+      <text x="590" y="86" textAnchor="middle" fontSize="10" fill="#EF9F27" fontFamily="monospace" fontWeight="700">U₂ = {u2.toFixed(1)}V</text>
+
+      {/* Status */}
+      <text x="340" y="222" textAnchor="middle" fontSize="12" fill={ok ? "#4CAF82" : "#E85350"} fontFamily="monospace" fontWeight="700">
+        {ok ? `U₁ + U₂ = ${(u1+u2).toFixed(1)}V = U_G ✓` : `U₁ + U₂ = ${(u1+u2).toFixed(1)}V ≠ U_G (${ug.toFixed(1)}V)`}
+      </text>
+    </svg>
+  );
+}
+
+function DerivationCircuit({ ug, u1, u2, ok }: { ug: number; u1: number; u2: number; ok: boolean }) {
+  return (
+    <svg viewBox="0 0 680 300" width="100%" role="img" aria-label="Circuit dérivation">
+      <defs>
+        <marker id="arr-d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </marker>
+      </defs>
+
+      {/* Rails */}
+      <path d="M130 55 H620" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M130 255 H620" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M620 55 V255" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      {/* G wires */}
+      <line x1="80" y1="55"  x2="130" y2="55"  stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="80" y1="255" x2="130" y2="255" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="80" y1="106" x2="80" y2="55"   stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="80" y1="204" x2="80" y2="255"  stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+
+      {/* G */}
+      <circle cx="80" cy="155" r="50" fill="rgba(14,40,80,0.55)" stroke="#378ADD" strokeWidth="2"/>
+      <text x="80" y="148" textAnchor="middle" fontSize="20" fill="#60A0E0" fontFamily="monospace" fontWeight="700">G</text>
+      <text x="80" y="121" textAnchor="middle" fontSize="13" fill="#EF9F27" fontFamily="monospace">+</text>
+      <text x="80" y="196" textAnchor="middle" fontSize="13" fill="#888" fontFamily="monospace">−</text>
+
+      {/* U_G */}
+      <line x1="18" y1="250" x2="18" y2="60" stroke="#EF9F27" strokeWidth="2" markerEnd="url(#arr-d)"/>
+      <text x="10" y="156" textAnchor="middle" fontSize="12" fill="#EF9F27" fontFamily="monospace" fontWeight="700">U</text>
+      <text x="10" y="168" textAnchor="middle" fontSize="9"  fill="#EF9F27" fontFamily="monospace">G</text>
+      <text x="30" y="168" textAnchor="middle" fontSize="10" fill="#EF9F27" fontFamily="monospace">{ug.toFixed(1)}V</text>
+
+      {/* Junction dots */}
+      <circle cx="270" cy="55"  r="5" fill="#378ADD"/>
+      <circle cx="270" cy="255" r="5" fill="#378ADD"/>
+      <circle cx="470" cy="55"  r="5" fill="#378ADD"/>
+      <circle cx="470" cy="255" r="5" fill="#378ADD"/>
+
+      {/* R1 branch — upper */}
+      <line x1="270" y1="55"  x2="270" y2="95"  stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="470" y1="55"  x2="470" y2="95"  stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <rect x="270" y="95" width="200" height="60" rx="8" fill="rgba(10,30,50,0.6)" stroke={Math.abs(u1-ug)<0.02 ? "#4CAF82" : "#1D9E75"} strokeWidth="2"/>
+      <polyline points="290,125 304,108 318,142 332,108 346,142 360,108 374,142 388,108 402,142 416,125 450,125" fill="none" stroke="#1D9E75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <text x="370" y="148" textAnchor="middle" fontSize="11" fill="#9FE1CB" fontFamily="monospace" fontWeight="700">R1</text>
+      {/* U1 */}
+      <line x1="280" y1="82" x2="460" y2="82" fill="none" stroke="#EF9F27" strokeWidth="1.5" markerEnd="url(#arr-d)"/>
+      <text x="370" y="76" textAnchor="middle" fontSize="10" fill="#EF9F27" fontFamily="monospace" fontWeight="700">U₁ = {u1.toFixed(1)}V</text>
+
+      {/* R2 branch — lower */}
+      <line x1="270" y1="255" x2="270" y2="215" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="470" y1="255" x2="470" y2="215" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/>
+      <rect x="270" y="155" width="200" height="60" rx="8" fill="rgba(10,30,50,0.6)" stroke={Math.abs(u2-ug)<0.02 ? "#4CAF82" : "#1D9E75"} strokeWidth="2"/>
+      <polyline points="290,185 304,168 318,202 332,168 346,202 360,168 374,202 388,168 402,202 416,185 450,185" fill="none" stroke="#1D9E75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <text x="370" y="208" textAnchor="middle" fontSize="11" fill="#9FE1CB" fontFamily="monospace" fontWeight="700">R2</text>
+      {/* U2 */}
+      <line x1="280" y1="228" x2="460" y2="228" fill="none" stroke="#EF9F27" strokeWidth="1.5" markerEnd="url(#arr-d)"/>
+      <text x="370" y="242" textAnchor="middle" fontSize="10" fill="#EF9F27" fontFamily="monospace" fontWeight="700">U₂ = {u2.toFixed(1)}V</text>
+
+      {/* Status */}
+      <text x="370" y="278" textAnchor="middle" fontSize="12" fill={ok ? "#4CAF82" : "#E85350"} fontFamily="monospace" fontWeight="700">
+        {ok ? `U_G = U₁ = U₂ = ${ug.toFixed(1)}V ✓` : `Cible : ${ug.toFixed(1)}V pour les deux branches`}
+      </text>
+    </svg>
+  );
+}
+
 export default function TensionLawsInteractive() {
   const [mode, setMode] = useState<"serie" | "derivation">("serie");
   const [ug, setUg] = useState(12);
@@ -14,17 +138,17 @@ export default function TensionLawsInteractive() {
   const ok = mode === "serie" ? serieOk : derivOk;
 
   const statusColor = ok ? "var(--color-green)" : "var(--color-red)";
-  const statusBg = ok ? "rgba(76,175,130,0.12)" : "rgba(239,83,80,0.10)";
+  const statusBg    = ok ? "rgba(76,175,130,0.12)" : "rgba(239,83,80,0.10)";
   const statusBorder = ok ? "rgba(76,175,130,0.3)" : "rgba(239,83,80,0.3)";
 
   const sliderStyle = { accentColor: "var(--color-accent)", width: "100%" };
   const labelSt: React.CSSProperties = { fontSize: 13, color: "var(--color-text-muted)", width: 80, flexShrink: 0 };
-  const valSt: React.CSSProperties = { fontSize: 13, fontWeight: 600, color: "var(--color-text)", minWidth: 52, textAlign: "right" };
+  const valSt: React.CSSProperties   = { fontSize: 13, fontWeight: 600, color: "var(--color-text)", minWidth: 52, textAlign: "right" };
 
   return (
     <div style={{ borderRadius: 14, border: "1px solid var(--color-border)", overflow: "hidden", background: "var(--color-surface-2)", marginTop: 18 }}>
 
-      {/* Tabs + hint */}
+      {/* Tabs */}
       <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--color-border)", display: "flex", gap: 8, alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" }}>
         <div style={{ display: "flex", gap: 8 }}>
           {([["serie", "En série"], ["derivation", "En dérivation"]] as const).map(([key, label]) => (
@@ -44,64 +168,20 @@ export default function TensionLawsInteractive() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
 
-        {/* Diagram */}
-        <div style={{ padding: 16, borderRight: "1px solid var(--color-border)" }}>
-          {mode === "serie" ? (
-            <svg viewBox="0 0 320 170" width="100%" role="img" aria-label="Circuit série">
-              <path d="M20 85 H60" stroke="rgba(0,200,224,0.5)" strokeWidth="3" strokeLinecap="round" />
-              <path d="M140 85 H180" stroke="rgba(0,200,224,0.5)" strokeWidth="3" strokeLinecap="round" />
-              <path d="M260 85 H300" stroke="rgba(0,200,224,0.5)" strokeWidth="3" strokeLinecap="round" />
-              {[
-                { x: 20, label: "G", val: ug, fill: "rgba(21,86,168,0.2)", stroke: "rgba(21,86,168,0.5)", tc: "var(--color-blue-lt)" },
-                { x: 140, label: "R1", val: u1, fill: "rgba(0,200,224,0.08)", stroke: "rgba(0,200,224,0.4)", tc: "var(--color-accent)" },
-                { x: 260, label: "R2", val: u2, fill: "rgba(0,200,224,0.08)", stroke: "rgba(0,200,224,0.4)", tc: "var(--color-accent)" },
-              ].map(({ x, label, val, fill, stroke, tc }) => (
-                <g key={label}>
-                  <rect x={x} y="55" width="80" height="60" rx="10" fill={fill} stroke={stroke} strokeWidth="2" />
-                  <text x={x + 40} y="89" textAnchor="middle" fill={tc} fontSize="14" fontWeight="700" fontFamily="var(--font-heading)">{label}</text>
-                  <text x={x + 40} y="40" textAnchor="middle" fill="var(--color-gold)" fontSize="11" fontWeight="700" fontFamily="var(--font-mono)">{val.toFixed(1)}V</text>
-                  <line x1={x + 40} y1="50" x2={x + 40} y2="57" stroke="var(--color-gold)" strokeWidth="2" strokeLinecap="round" />
-                  <path d={`M${x+33} 50 L${x+40} 44 L${x+47} 50`} fill="none" stroke="var(--color-gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </g>
-              ))}
-              <text x="160" y="152" textAnchor="middle" fill={serieOk ? "var(--color-green)" : "var(--color-red)"} fontSize="12" fontFamily="var(--font-mono)" fontWeight="700">
-                {serieSum.toFixed(1)} V {serieOk ? `= U_G ✓` : `≠ ${ug.toFixed(1)} V`}
-              </text>
-            </svg>
-          ) : (
-            <svg viewBox="0 0 320 190" width="100%" role="img" aria-label="Circuit dérivation">
-              <rect x="10" y="70" width="60" height="60" rx="10" fill="rgba(21,86,168,0.2)" stroke="rgba(21,86,168,0.5)" strokeWidth="2" />
-              <text x="40" y="104" textAnchor="middle" fill="var(--color-blue-lt)" fontSize="13" fontWeight="700" fontFamily="var(--font-heading)">G</text>
-              <text x="40" y="58" textAnchor="middle" fill="var(--color-gold)" fontSize="11" fontWeight="700" fontFamily="var(--font-mono)">{ug.toFixed(1)}V</text>
-              <path d="M70 85 H100" stroke="rgba(0,200,224,0.4)" strokeWidth="3" strokeLinecap="round" />
-              <path d="M70 115 H100" stroke="rgba(0,200,224,0.4)" strokeWidth="3" strokeLinecap="round" />
-              <path d="M100 85 V30" stroke="rgba(0,200,224,0.3)" strokeWidth="2" strokeLinecap="round" />
-              <path d="M100 115 V160" stroke="rgba(0,200,224,0.3)" strokeWidth="2" strokeLinecap="round" />
-              <path d="M260 85 V30" stroke="rgba(0,200,224,0.3)" strokeWidth="2" strokeLinecap="round" />
-              <path d="M260 115 V160" stroke="rgba(0,200,224,0.3)" strokeWidth="2" strokeLinecap="round" />
-              <path d="M100 30 H260" stroke="rgba(0,200,224,0.3)" strokeWidth="2" strokeLinecap="round" />
-              <path d="M100 160 H260" stroke="rgba(0,200,224,0.3)" strokeWidth="2" strokeLinecap="round" />
-              <path d="M260 100 H300" stroke="rgba(0,200,224,0.4)" strokeWidth="3" strokeLinecap="round" />
-              <rect x="120" y="42" width="60" height="46" rx="8" fill="rgba(0,200,224,0.08)"
-                stroke={Math.abs(u1-ug)<0.02 ? "rgba(76,175,130,0.7)" : "rgba(0,200,224,0.4)"} strokeWidth="2" />
-              <text x="150" y="69" textAnchor="middle" fill="var(--color-accent)" fontSize="11" fontWeight="700" fontFamily="var(--font-heading)">R1 — {u1.toFixed(1)}V</text>
-              <rect x="120" y="110" width="60" height="46" rx="8" fill="rgba(0,200,224,0.08)"
-                stroke={Math.abs(u2-ug)<0.02 ? "rgba(76,175,130,0.7)" : "rgba(0,200,224,0.4)"} strokeWidth="2" />
-              <text x="150" y="137" textAnchor="middle" fill="var(--color-accent)" fontSize="11" fontWeight="700" fontFamily="var(--font-heading)">R2 — {u2.toFixed(1)}V</text>
-              <text x="160" y="182" textAnchor="middle" fill={derivOk ? "var(--color-green)" : "var(--color-text-sub)"} fontSize="11" fontFamily="var(--font-mono)" fontWeight="700">
-                {derivOk ? `U_G = U₁ = U₂ = ${ug.toFixed(1)}V ✓` : `Cible : ${ug.toFixed(1)}V pour R1 et R2`}
-              </text>
-            </svg>
-          )}
+        {/* Circuit */}
+        <div style={{ padding: 16, borderRight: "1px solid var(--color-border)", background: "rgba(6,12,24,0.6)" }}>
+          {mode === "serie"
+            ? <SerieCircuit ug={ug} u1={u1} u2={u2} ok={serieOk} />
+            : <DerivationCircuit ug={ug} u1={u1} u2={u2} ok={derivOk} />}
         </div>
 
-        {/* Sliders */}
+        {/* Controls */}
         <div style={{ padding: "14px 16px" }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", color: "var(--color-text-sub)", marginBottom: 12 }}>TENSIONS</div>
           {[
             { label: "U_G (V)", min: 1, max: 24, step: 0.5, val: ug, set: setUg },
-            { label: "U₁ (V)", min: 0, max: 24, step: 0.5, val: u1, set: setU1 },
-            { label: "U₂ (V)", min: 0, max: 24, step: 0.5, val: u2, set: setU2 },
+            { label: "U₁ (V)",  min: 0, max: 24, step: 0.5, val: u1, set: setU1 },
+            { label: "U₂ (V)",  min: 0, max: 24, step: 0.5, val: u2, set: setU2 },
           ].map(({ label, min, max, step, val, set }) => (
             <div key={label} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <span style={labelSt}>{label}</span>
@@ -111,7 +191,6 @@ export default function TensionLawsInteractive() {
             </div>
           ))}
 
-          {/* Snap button — only in dérivation when not verified */}
           {mode === "derivation" && !derivOk && (
             <button onClick={() => { setU1(ug); setU2(ug); }} style={{
               width: "100%", marginBottom: 10, padding: "8px 12px", borderRadius: 8, cursor: "pointer",
@@ -122,7 +201,6 @@ export default function TensionLawsInteractive() {
             </button>
           )}
 
-          {/* Status */}
           <div style={{ padding: "10px 12px", borderRadius: 8, background: statusBg, border: `1px solid ${statusBorder}`, fontSize: 13, fontWeight: 700, color: statusColor, lineHeight: 1.6 }}>
             {mode === "serie"
               ? (serieOk
@@ -130,7 +208,7 @@ export default function TensionLawsInteractive() {
                   : `U₁ + U₂ = ${serieSum.toFixed(1)} V — écart : ${Math.abs(serieSum - ug).toFixed(2)} V`)
               : (derivOk
                   ? `✓ U_G = U₁ = U₂ = ${ug.toFixed(1)} V`
-                  : `U₁=${u1.toFixed(1)}V, U₂=${u2.toFixed(1)}V → tous doivent valoir ${ug.toFixed(1)}V`)}
+                  : `U₁=${u1.toFixed(1)}V, U₂=${u2.toFixed(1)}V → doivent valoir ${ug.toFixed(1)}V`)}
           </div>
 
           <div style={{ marginTop: 8, fontSize: 11, color: "var(--color-text-sub)", fontFamily: "var(--font-mono)" }}>
